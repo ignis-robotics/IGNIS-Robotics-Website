@@ -206,7 +206,7 @@ function About() {
           </div>
           <div className="editorial-content">
             <SectionTag>The Challenge</SectionTag>
-            <h2>Six weeks to build an industrial robot</h2>
+            <h2>Six weeks to build an industrial robot.</h2>
             <p>
               In early January, FIRST releases a brand-new game challenge with specific scoring objectives and field obstacles. Teams receive the rules and have six weeks to brainstorm game strategy, prototype intake and shooter mechanisms, design full assemblies in CAD, machine aluminum components, and wire control electronics.
             </p>
