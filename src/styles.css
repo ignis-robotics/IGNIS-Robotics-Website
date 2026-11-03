@@ -374,15 +374,6 @@ main {
   object-position: center 25%;
 }
 
-.hero-caption {
-  display: block;
-  margin-top: 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  letter-spacing: 0.04em;
-}
-
 /* Home: Feature Grid */
 .home-pillars {
   padding: 3.5rem 0;
@@ -519,64 +510,143 @@ main {
 
 .sponsor-tiers {
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   margin-bottom: 1.5rem;
+  background-color: var(--surface);
 }
 
 .sponsor-tier-row {
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 240px 1fr;
   border-bottom: 1px solid var(--border-subtle);
+  border-left: 2px solid var(--border-strong);
   background-color: var(--surface);
+  transition: background-color 0.2s ease;
 }
 
 .sponsor-tier-row:last-child {
   border-bottom: none;
 }
 
+.sponsor-tier-row:hover {
+  background-color: var(--surface-raised);
+}
+
+.tier-title,
+.tier-core {
+  background-color: var(--surface);
+}
+
+.tier-title {
+  border-left-color: #a78bfa;
+}
+
+.tier-core {
+  border-left-color: var(--accent);
+}
+
+.tier-gold {
+  border-left-color: #e5c07b;
+}
+
 .sponsor-tier-label {
-  padding: 1.5rem;
+  padding: 1.25rem 1.75rem;
   border-right: 1px solid var(--border-subtle);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .sponsor-tier-label h2 {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-secondary);
   font-family: var(--font-mono);
 }
 
 .sponsor-tier-entries {
-  padding: 1.5rem;
+  padding: 1.25rem 2rem;
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
   align-items: center;
+  justify-content: center;
 }
 
 .sponsor-entry {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
   min-width: 0;
+  transition: transform 0.2s ease;
+}
+
+.sponsor-entry:hover {
+  transform: translateY(-2px);
 }
 
 .sponsor-logo {
   display: flex;
   align-items: center;
-  min-height: 48px;
+  justify-content: center;
+  min-height: 0;
+  padding: 0.25rem 0.5rem;
+}
+
+.sponsor-logo a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s ease, transform 0.2s ease;
+}
+
+.sponsor-logo a:hover {
+  opacity: 0.9;
+  transform: scale(1.03);
 }
 
 .sponsor-logo img {
-  max-height: 40px;
-  max-width: 170px;
+  max-height: 64px;
+  max-width: 260px;
+  width: auto;
+  height: auto;
   object-fit: contain;
   display: block;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+}
+
+.tier-title .sponsor-logo {
+  min-height: 0;
+}
+
+.tier-title .sponsor-logo img {
+  max-height: 88px;
+  max-width: 300px;
+  /* Apple mark has empty padding in its viewBox — bump it so it doesn't read smaller */
+  height: 88px;
+  width: auto;
+}
+
+.tier-core .sponsor-logo {
+  min-height: 0;
+}
+
+.tier-core .sponsor-logo img {
+  max-height: 64px;
+  max-width: 300px;
+}
+
+.tier-gold .sponsor-logo img {
+  max-height: 56px;
+  max-width: 280px;
+}
+
+.sponsor-logo-team img {
+  max-height: 64px;
+  max-width: 120px;
+  border-radius: 12px;
 }
 
 .sponsor-meta {
@@ -615,6 +685,63 @@ main {
 
 .sponsor-team-number a:hover {
   color: var(--accent);
+}
+
+/* Mentorship — kept separate from financial sponsors */
+.mentor-panel {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  align-items: stretch;
+  margin-bottom: 1.5rem;
+  background-color: var(--surface-raised);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.mentor-label {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem 1.75rem;
+  border-right: 1px solid var(--border-subtle);
+}
+
+.mentor-label h2 {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.mentor-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  padding: 1.25rem 2rem;
+  justify-self: center;
+}
+
+.mentor-entry img {
+  max-height: 56px;
+  max-width: 110px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  display: block;
+}
+
+.mentor-team-id {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
 }
 
 /* Sponsor info: costs + become a sponsor */
@@ -990,15 +1117,41 @@ main {
   .sponsor-tier-label {
     border-right: none;
     border-bottom: 1px solid var(--border-subtle);
-    padding: 1rem 1.5rem 0.75rem;
+    padding: 1rem 1.5rem;
   }
 
   .sponsor-tier-entries {
     padding: 1.25rem 1.5rem;
   }
 
+  .sponsor-logo img,
+  .tier-core .sponsor-logo img,
+  .tier-gold .sponsor-logo img {
+    max-width: min(78vw, 300px);
+  }
+
+  .tier-title .sponsor-logo img {
+    max-height: 76px;
+    height: 76px;
+    max-width: min(82vw, 320px);
+  }
+
   .sponsor-info-grid {
     grid-template-columns: 1fr;
+  }
+
+  .mentor-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .mentor-label {
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1rem 1.5rem;
+  }
+
+  .mentor-entry {
+    justify-self: stretch;
   }
 
   .sponsor-cost-list li {

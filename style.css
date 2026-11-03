@@ -175,19 +175,24 @@ main { width: min(var(--content), calc(100% - 3rem)); margin: 0 auto; padding: c
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.25rem;
-  min-height: 260px;
-  padding: 2.5rem 1.5rem;
+  gap: 1rem;
+  min-height: 180px;
+  padding: 1.5rem 1.5rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: linear-gradient(145deg, rgba(19,36,58,.96), rgba(10,22,37,.92));
   text-align: center;
+  transition: transform .25s ease, border-color .25s ease;
+}
+.tier-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(101,215,239,.4);
 }
 .tier-featured { border-color: rgba(255,180,91,.45); }
 .tier-label { color: var(--cyan); font: 500 .72rem 'DM Mono', monospace; letter-spacing: .16em; text-transform: uppercase; }
-.tier-logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2rem; width: 100%; padding: 1.25rem; }
-.tier-logos img { display: block; height: 48px; width: auto; object-fit: contain; }
-.tier-featured .tier-logos img { height: 64px; }
+.tier-logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2rem; width: 100%; padding: 0.5rem; }
+.tier-logos img { display: block; height: 60px; width: auto; max-width: 100%; object-fit: contain; filter: drop-shadow(0 4px 16px rgba(0,0,0,.4)); }
+.tier-featured .tier-logos img { height: 84px; max-width: 300px; }
 .tier-open { border-style: dashed; background: rgba(13,25,41,.4); }
 .tier-open .tier-label { color: var(--dim); }
 .tier-sought { color: var(--dim); font: 500 .78rem 'DM Mono', monospace; letter-spacing: .14em; text-transform: uppercase; }

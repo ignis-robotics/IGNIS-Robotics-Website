@@ -144,7 +144,6 @@ function Home() {
           <div className="hero-image-wrap">
             <img src="./images/Frontpageimage.png" alt="IGNIS Robotics team members gathered together" />
           </div>
-          <span className="hero-caption">IGNIS Robotics team members at Milpitas High School</span>
         </div>
       </section>
 
@@ -269,7 +268,7 @@ const sponsorTiers = [
     sponsors: [
       {
         name: 'Google',
-        logo: './images/Google_G_Logo.svg',
+        logo: './images/Google_Logo.svg',
       },
     ],
   },
@@ -277,6 +276,7 @@ const sponsorTiers = [
 
 const teamSupport = {
   name: 'FRC Team 3256 — WarriorBorgs',
+  logo: './images/WarriorBorgs_3256_Logo.png',
   link: 'https://www.thebluealliance.com/team/3256',
 }
 
@@ -291,50 +291,46 @@ function Sponsors() {
 
       <section className="section-wrap sponsor-section">
         <div className="sponsor-tiers">
-          {sponsorTiers.map(({ tier, sponsors }) => (
-            <div className="sponsor-tier-row" key={tier}>
-              <div className="sponsor-tier-label">
-                <h2>{tier}</h2>
-              </div>
-              <div className="sponsor-tier-entries">
-                {sponsors.map((sponsor) => (
-                  <div className="sponsor-entry" key={sponsor.name}>
-                    <div className="sponsor-logo">
-                      {sponsor.link ? (
-                        <a href={sponsor.link} target="_blank" rel="noreferrer" aria-label={`${sponsor.name} website`}>
+          {sponsorTiers.map(({ tier, sponsors }) => {
+            const slug = tier.split(' ')[0].toLowerCase()
+            return (
+              <div className={`sponsor-tier-row tier-${slug}`} key={tier}>
+                <div className="sponsor-tier-label">
+                  <h2>{tier}</h2>
+                </div>
+                <div className="sponsor-tier-entries">
+                  {sponsors.map((sponsor) => (
+                    <div className="sponsor-entry" key={sponsor.name}>
+                      <div className="sponsor-logo">
+                        {sponsor.link ? (
+                          <a href={sponsor.link} target="_blank" rel="noreferrer" aria-label={`${sponsor.name} website`}>
+                            <img src={sponsor.logo} alt={`${sponsor.name} logo`} />
+                          </a>
+                        ) : (
                           <img src={sponsor.logo} alt={`${sponsor.name} logo`} />
-                        </a>
-                      ) : (
-                        <img src={sponsor.logo} alt={`${sponsor.name} logo`} />
-                      )}
+                        )}
+                      </div>
                     </div>
-                    <div className="sponsor-meta">
-                      <span className="sponsor-name">{sponsor.name}</span>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
 
-          <div className="sponsor-tier-row sponsor-team-row">
-            <div className="sponsor-tier-label">
-              <h2>Team Support</h2>
+          <div className="mentor-panel">
+            <div className="mentor-label">
+              <h2>Substantial Mentor</h2>
             </div>
-            <div className="sponsor-tier-entries">
-              <div className="sponsor-entry sponsor-entry-text">
-                <div className="sponsor-team-number">
-                  <a href={teamSupport.link} target="_blank" rel="noreferrer">
-                    3256
-                  </a>
-                </div>
-                <div className="sponsor-meta">
-                  <a className="sponsor-name sponsor-name-link" href={teamSupport.link} target="_blank" rel="noreferrer">
-                    {teamSupport.name} ↗
-                  </a>
-                </div>
-              </div>
-            </div>
+            <a
+              className="mentor-entry"
+              href={teamSupport.link}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${teamSupport.name} page`}
+            >
+              <img src={teamSupport.logo} alt={`${teamSupport.name} logo`} />
+              <span className="mentor-team-id">Team 3256</span>
+            </a>
           </div>
         </div>
 
@@ -344,19 +340,19 @@ function Sponsors() {
             <ul className="sponsor-cost-list">
               <li>
                 <span>Registration</span>
-                <span>~$6,000 first regional + kit of parts</span>
+                <span>$6,500 base registration + advancement fees</span>
               </li>
               <li>
-                <span>Motors and electronics</span>
-                <span>Brushless motors, controllers, roboRIO, power distribution</span>
+                <span>Motors and Electronics</span>
+                <span>Actuators, wiring, vision, and computing</span>
               </li>
               <li>
-                <span>Materials</span>
+                <span>Parts and Materials</span>
                 <span>Aluminum, polycarbonate, bearings, belts, fasteners</span>
               </li>
               <li>
                 <span>Tools</span>
-                <span>Drill presses, hand tools, batteries, wiring</span>
+                <span>CNCs, saws, and hand tools</span>
               </li>
             </ul>
           </div>
