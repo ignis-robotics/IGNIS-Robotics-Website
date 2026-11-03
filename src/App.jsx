@@ -1,20 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom'
 
-const leadership = [
-  ['Nimish Nijhawan', 'President & Founder', 'nimish.jpeg', 'Started out in middle school with two years of Botball, then FTC and FRC. He founded IGNIS to open robotics up to students who had never been given a shot at it. He leads technical development and team operations, and runs fundraising and the fall training program for new members.', 'nn102597@student.musd.org'],
-  ['Ayan Bera', 'Vice President', 'AayanBera.jpeg', 'Co-founder, and previously a member of two separate FRC teams. Did VEX in middle school, then went on to coach VEX at ICC.', 'ab108910@student.musd.org'],
-  ['Evan Soh', 'Secretary', 'Evan.png', 'Was on a VEX team his freshman year. Works with the mechanical subteam, and keeps track of meeting minutes and attendance.', 'es93515@student.musd.org'],
-  ['Tijan Noah White', 'Treasurer', 'Tijan.png', 'Started learning Python in 2023 and switched to Java in late 2025. Handles purchase paperwork and fundraising, and helps out with code.', 'tw110624@student.musd.org'],
-  ['Pranav Thirumala', 'Technical Lead — Mechanical', 'Pranav.png', 'Came up through FRC Team 254, the Cheesy Poofs — 2nd in the world his freshman year, and qualified for worlds his sophomore year. After moving from Bellarmine to Milpitas his junior year he joined the FTC team. Leads the mechanical and electrical subteams.', 'pt90559@student.musd.org'],
-  ['Ahsan Ahmed', 'Technical Lead — Software', 'Ahsan.png', 'A year of Botball, which is where he picked up autonomous programming and structured coding under competition constraints. Works on independent projects outside of competitions. Leads robot code, code architecture, and system integration, and keeps an eye on the electrical side.', 'aa103869@student.musd.org'],
-]
-
 const navItems = [
   ['/', 'Home'],
   ['/about', 'About'],
   ['/sponsors', 'Sponsors'],
-  ['/our-team', 'Our Team'],
   ['/contact', 'Contact'],
 ]
 
@@ -32,14 +22,41 @@ function App() {
       <header className="site-header">
         <Link className="brand" to="/" aria-label="IGNIS Robotics home">
           <img src="./images/Team logo.png" alt="IGNIS Robotics logo" />
-          <span><strong>IGNIS</strong><small>FRC TEAM 12034</small></span>
+          <div className="brand-text">
+            <span className="brand-title">IGNIS Robotics</span>
+            <span className="brand-subtitle">FRC Team 12034 · Milpitas, CA</span>
+          </div>
         </Link>
-        <button className="menu-toggle" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="site-nav">
-          <span /><span /><span /><b className="sr-only">Toggle navigation</b>
+        <button
+          className="menu-toggle"
+          type="button"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-expanded={menuOpen}
+          aria-controls="site-nav"
+          aria-label="Toggle navigation menu"
+        >
+          <span />
+          <span />
+          <span />
         </button>
-        <nav id="site-nav" className={menuOpen ? 'is-open' : ''} aria-label="Main navigation">
-          {navItems.map(([path, label]) => <NavLink key={path} to={path} end={path === '/'}>{label}</NavLink>)}
-          <Link className="nav-cta" to="/contact">Join the team <span>↗</span></Link>
+        <nav
+          id="site-nav"
+          className={`site-nav ${menuOpen ? 'is-open' : ''}`}
+          aria-label="Main navigation"
+        >
+          {navItems.map(([path, label]) => (
+            <NavLink
+              key={path}
+              to={path}
+              end={path === '/'}
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              {label}
+            </NavLink>
+          ))}
+          <Link className="nav-cta" to="/contact">
+            Join the team
+          </Link>
         </nav>
       </header>
 
@@ -48,54 +65,433 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/sponsors" element={<Sponsors />} />
-          <Route path="/our-team" element={<Team />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      <footer className="site-footer"><span>IGNIS ROBOTICS / TEAM 12034</span></footer>
+
+      <footer className="site-footer">
+        <div className="section-wrap footer-content">
+          <div className="footer-meta">
+            <span className="footer-team-id">IGNIS Robotics · FRC Team 12034</span>
+            <span className="footer-location">Milpitas High School · Milpitas, California</span>
+            <p className="footer-nonprofit">
+              Fiscally sponsored by The Hack Foundation (Hack Club), a 501(c)(3) tax-exempt public charity.
+            </p>
+          </div>
+          <nav className="footer-nav" aria-label="Footer navigation">
+            <Link to="/">Home</Link>
+            <Link to="/about">About</Link>
+            <Link to="/sponsors">Sponsors</Link>
+            <Link to="/contact">Contact</Link>
+            <a
+              href="https://hcb.hackclub.com/donations/start/ignis-robotics"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Hack Club Bank ↗
+            </a>
+          </nav>
+        </div>
+      </footer>
     </div>
   )
 }
 
-function Eyebrow({ children }) { return <div className="eyebrow"><i />{children}</div> }
-function ArrowLink({ to, children, dark = false }) { return <Link className={`arrow-link ${dark ? 'dark' : ''}`} to={to}>{children}<span>↗</span></Link> }
-function PageIntro({ eyebrow, title, copy }) { return <section className="page-intro"><Eyebrow>{eyebrow}</Eyebrow><h1>{title}</h1>{copy && <p>{copy}</p>}</section> }
+function SectionTag({ children }) {
+  return <div className="section-tag">{children}</div>
+}
+
+function PageIntro({ tag, title, copy }) {
+  return (
+    <section className="page-intro section-wrap">
+      {tag && <SectionTag>{tag}</SectionTag>}
+      <h1>{title}</h1>
+      {copy && <p>{copy}</p>}
+    </section>
+  )
+}
 
 function Home() {
-  return <>
-    <section className="hero section-wrap">
-      <div className="hero-copy"><h1>Training the next generation of <em>engineers.</em></h1><p className="lede">We are a student-run FRC team at Milpitas High School. We build a competition robot each season and bring STEM to our community.</p><div className="hero-actions"><ArrowLink to="/about">Explore our mission</ArrowLink><a className="text-link" href="https://www.firstinspires.org/programs/frc/" target="_blank" rel="noreferrer">What is FRC? <span>↗</span></a></div><p className="hero-manifesto">Most of our members join with little to no robotics experience, and we welcome students at any skill level.</p></div>
-      <div className="hero-art"><div className="hero-frame"><img src="./images/Frontpageimage.png" alt="IGNIS Robotics team" /></div><span className="art-label">IGNIS / 12034</span></div>
-    </section>
-    <section className="section-wrap feature-grid"><Feature number="01" title="Student led" copy="We are entirely student-led. Members handle CAD, code, outreach, and team operations." /><Feature number="02" title="Real engineering" copy="We build industrial-sized robots on a six-week clock. There is no time to do it twice." /><Feature number="03" title="STEM for all" copy="We train new members from scratch and mentor middle school robotics programs." /></section>
-    <section className="section-wrap home-cta"><div><Eyebrow>Make an impact</Eyebrow><h2>Get in contact</h2></div><ArrowLink to="/contact" dark>Get in touch</ArrowLink></section>
-  </>
+  return (
+    <>
+      <section className="hero section-wrap">
+        <div className="hero-copy">
+          <SectionTag>FRC Team 12034 · Milpitas High School</SectionTag>
+          <h1>Engineering competition robots from the ground up.</h1>
+          <p className="hero-lede">
+            We are a student-founded and student-led FIRST Robotics Competition team at Milpitas High School.
+            Each season, we design, machine, wire, and program a 120-pound competition robot on a strict six-week timeline.
+          </p>
+          <div className="hero-actions">
+            <Link className="btn-primary" to="/about">
+              About our program
+            </Link>
+            <a
+              className="btn-secondary"
+              href="https://www.firstinspires.org/programs/frc/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              What is FRC? ↗
+            </a>
+          </div>
+          <p className="hero-manifesto">
+            We welcome any Milpitas High student regardless of prior background. Experienced members teach CAD, shop tools, wiring, and robot code during our fall training cycle.
+          </p>
+        </div>
+        <div className="hero-media">
+          <div className="hero-image-wrap">
+            <img src="./images/Frontpageimage.png" alt="IGNIS Robotics team members gathered together" />
+          </div>
+          <span className="hero-caption">IGNIS Robotics team members at Milpitas High School</span>
+        </div>
+      </section>
+
+      <section className="section-wrap home-pillars">
+        <SectionTag>How we operate</SectionTag>
+        <div className="pillar-grid">
+          <article className="pillar-card">
+            <span className="pillar-index">01</span>
+            <h3>Student-led operations</h3>
+            <p>
+              Students lead every part of the team: CAD modeling, CNC machining, electrical wiring, autonomous software, sponsor outreach, and logistics.
+            </p>
+          </article>
+          <article className="pillar-card">
+            <span className="pillar-index">02</span>
+            <h3>Six-week build season</h3>
+            <p>
+              From the January game reveal to regional competitions in March, we prototype, fabricate, and calibrate an industrial-sized machine under hard deadlines.
+            </p>
+          </article>
+          <article className="pillar-card">
+            <span className="pillar-index">03</span>
+            <h3>Hands-on fall training</h3>
+            <p>
+              Before build season begins, we run weekly workshops teaching Onshape, power tools, safety protocols, electronics, and WPILib Java programming.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section className="section-wrap">
+        <div className="home-cta-strip">
+          <div>
+            <h2>Interested in joining or supporting the team?</h2>
+            <p>
+              We are always open to prospective students, engineering mentors from the community, and sponsor partnerships.
+            </p>
+          </div>
+          <Link className="btn-primary" to="/contact">
+            Get in touch
+          </Link>
+        </div>
+      </section>
+    </>
+  )
 }
-function Feature({ number, title, copy }) { return <article className="feature-card"><span>{number}</span><h3>{title}</h3><p>{copy}</p><b>↗</b></article> }
 
 function About() {
-  return <><PageIntro eyebrow="The program" title={<>More than a robot.<br /><em>A launchpad.</em></>} copy="FIRST Robotics Competition has teams design, build, and program industrial-sized robots in six weeks." /><section className="section-wrap editorial"><InfoBlock image="./images/What-is-FRC.jpg" eyebrow="01 / The challenge" title="Engineering under pressure" copy={<>Each season, teams get a new game and just six intense weeks to create a fully functional robot. We brainstorm, model, manufacture, wire, program, test, and iterate until the machine is ready to compete.</>} /><InfoBlock image="./images/mission image.jpeg" eyebrow="02 / Our mission" title="Open the door wider" reverse copy={<>Around 60% of our members join with little to no STEM experience. They learn CAD, machining, wiring, and code from other members, and end up running the robot themselves.</>} /></section><section className="section-wrap quote-block"><blockquote>We run robotics training for new members every fall. No experience needed — you learn on a real robot.</blockquote></section></>
+  return (
+    <>
+      <PageIntro
+        tag="The Program"
+        title="Hands-on engineering under real competition constraints."
+        copy="FIRST Robotics Competition gives high school students practical experience in mechanical design, electrical routing, embedded programming, and team operations."
+      />
+      <section className="section-wrap about-sections">
+        <article className="editorial-block">
+          <div className="editorial-media">
+            <img src="./images/What-is-FRC.jpg" alt="Robots competing in a FIRST Robotics match" />
+          </div>
+          <div className="editorial-content">
+            <SectionTag>The Challenge</SectionTag>
+            <h2>Six weeks to field a competition machine.</h2>
+            <p>
+              In early January, FIRST releases a brand-new game challenge with specific scoring objectives and field obstacles. Teams receive the rules and have six weeks to brainstorm game strategy, prototype intake and shooter mechanisms, design full assemblies in CAD, machine aluminum components, and wire control electronics.
+            </p>
+            <p>
+              Every robot must stay within strict size and weight constraints (typically 125 pounds without battery and bumpers) while operating reliably across dozens of high-intensity matches.
+            </p>
+          </div>
+        </article>
+
+        <article className="editorial-block reverse">
+          <div className="editorial-media">
+            <img src="./images/mission image.jpeg" alt="IGNIS Robotics team working on hardware" />
+          </div>
+          <div className="editorial-content">
+            <SectionTag>Our Approach</SectionTag>
+            <h2>Lowering the barrier to competitive robotics.</h2>
+            <p>
+              Around 60% of our members join with little to no previous STEM or robotics experience. Rather than reserving robot development for seniors, we run a structured fall training curriculum where new members handle shop tools, assemble test mechanisms, and write robot code immediately.
+            </p>
+            <p>
+              Students learn through direct peer mentorship, taking ownership of entire subassemblies and competition systems.
+            </p>
+          </div>
+        </article>
+
+        <div className="training-callout">
+          <h3>Fall Training Curriculum</h3>
+          <p>
+            Workshops run weekly throughout the fall semester at Milpitas High School. Modules cover 3D modeling in Onshape, shop tool safety, motor and gearbox selection, sensor integration, and Java programming with WPILib. No prior experience required.
+          </p>
+        </div>
+      </section>
+    </>
+  )
 }
-function InfoBlock({ image, eyebrow, title, copy, reverse }) { return <article className={`info-block ${reverse ? 'reverse' : ''}`}><img src={image} alt="" /><div><Eyebrow>{eyebrow}</Eyebrow><h2>{title}</h2><p>{copy}</p></div></article> }
 
 const sponsorTiers = [
-  { tier: 'Title Sponsors', featured: true, sponsors: [{ name: 'Title sponsor logo', src: './images/Apple_Logo_White_lg.svg' }] },
-  { tier: 'Core Sponsors', sponsors: [] },
-  { tier: 'Gold Sponsors', sponsors: [{ name: 'Google', src: './images/Google_G_Logo.svg' }] },
-  { tier: 'Silver Sponsors', sponsors: [] },
+  {
+    tier: 'Title Sponsors',
+    sponsors: [
+      {
+        name: 'Apple',
+        logo: './images/Apple_Logo_White_lg.svg',
+      },
+    ],
+  },
+  {
+    tier: 'Core Sponsors',
+    sponsors: [
+      {
+        name: 'Argosy Foundation',
+        logo: './images/Argosy_Foundation_Logo_White.png',
+        link: 'https://www.argosyfnd.org/',
+      },
+    ],
+  },
+  {
+    tier: 'Gold Sponsors',
+    sponsors: [
+      {
+        name: 'Google',
+        logo: './images/Google_G_Logo.svg',
+      },
+    ],
+  },
 ]
 
+const teamSupport = {
+  name: 'FRC Team 3256 — WarriorBorgs',
+  link: 'https://www.thebluealliance.com/team/3256',
+}
+
 function Sponsors() {
-  return <><PageIntro eyebrow="Sponsorship" title={<>Build the future<br /><em>with us.</em></>} copy="Sponsorship pays for robot parts, tools, registration, and travel." /><section className="section-wrap sponsor-tiers"><Eyebrow>Our sponsors</Eyebrow><h2 className="tiers-title">Our Partners</h2><div className="tier-grid">{sponsorTiers.map(({ tier, featured, sponsors }) => <article className={`tier-card${featured ? ' tier-featured' : ''}${sponsors.length ? '' : ' tier-open'}`} key={tier}><span className="tier-label">{tier}</span>{sponsors.length > 0 ? <div className="tier-logos">{sponsors.map(({ name, src }) => <img src={src} alt={name} key={src} />)}</div> : <span className="tier-sought">Sought</span>}</article>)}</div></section><section className="section-wrap sponsor-layout"><div className="sponsor-story"><h2>Why IGNIS?</h2><p>FRC is expensive. Robot parts, motors, electronics, fabrication materials, tools, registration, travel, and equipment maintenance all add up fast. Sponsorship covers that, so students can spend build season actually building.</p><div className="stat-grid"><Stat value="83%" label="of FIRST alumni pursue STEM majors by year four." /><Stat value="51%" label="of female FIRST alumni major in engineering or CS." /><Stat value="63%" label="of alumni work in a STEM field." /></div></div><aside className="sponsor-card"><Eyebrow>Partner with 12034</Eyebrow><h2>Sponsor the team</h2><p>Support robot parts, tools, registration, travel, and the people who make it all happen.</p><ArrowLink to="/contact">Start a conversation</ArrowLink><a className="resource-link" href="https://docs.google.com/document/d/1VcobJuTHBTYQPiitCKM2Ftywepp1LyxhzjxF4hCkPEA/edit?usp=sharing" target="_blank" rel="noreferrer">Download sponsor packet ↗</a></aside></section><section className="section-wrap donation"><Eyebrow>Give directly</Eyebrow><h2>Donations are processed through Hack Club.</h2><p>Hack Club is a 501(c)(3) nonprofit organization supporting our team.</p><a className="arrow-link" href="https://hcb.hackclub.com/donations/start/ignis-robotics" target="_blank" rel="noreferrer">Open donation portal</a></section></>
-}
-function Stat({ value, label }) { return <div><strong>{value}</strong><p>{label}</p></div> }
+  return (
+    <>
+      <PageIntro
+        tag="Sponsors"
+        title="Sponsors."
+        copy="Funding from these organizations pays for parts, tools, registration, and travel for Team 12034."
+      />
 
-function Team() {
-  return <><PageIntro eyebrow="Team leadership" title={<>Meet the<br /><em>leadership.</em></>} copy="Meet the students guiding IGNIS Robotics and turning our shared ambition into action." /><section className="section-wrap team-grid">{leadership.map(([name, role, photo, bio, email]) => <article className="person" key={name}><div className="person-photo"><img src={`./images/leadership/${photo}`} alt={name} /></div><div className="person-details"><Eyebrow>{role}</Eyebrow><h2>{name}</h2><p>{bio}</p><a href={`mailto:${email}`}>{email} ↗</a></div></article>)}</section><section className="section-wrap team-footer"><h2>Want to build with us?</h2><ArrowLink to="/contact">Join IGNIS</ArrowLink><a className="resource-link" href="https://docs.google.com/document/d/1gpvER9PW_hBJd7ICywIsfrkxyUFQJNKHHJ8V1G0wucE/edit?usp=sharing" target="_blank" rel="noreferrer">View full members list ↗</a></section></>
+      <section className="section-wrap sponsor-section">
+        <div className="sponsor-tiers">
+          {sponsorTiers.map(({ tier, sponsors }) => (
+            <div className="sponsor-tier-row" key={tier}>
+              <div className="sponsor-tier-label">
+                <h2>{tier}</h2>
+              </div>
+              <div className="sponsor-tier-entries">
+                {sponsors.map((sponsor) => (
+                  <div className="sponsor-entry" key={sponsor.name}>
+                    <div className="sponsor-logo">
+                      {sponsor.link ? (
+                        <a href={sponsor.link} target="_blank" rel="noreferrer" aria-label={`${sponsor.name} website`}>
+                          <img src={sponsor.logo} alt={`${sponsor.name} logo`} />
+                        </a>
+                      ) : (
+                        <img src={sponsor.logo} alt={`${sponsor.name} logo`} />
+                      )}
+                    </div>
+                    <div className="sponsor-meta">
+                      <span className="sponsor-name">{sponsor.name}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          <div className="sponsor-tier-row sponsor-team-row">
+            <div className="sponsor-tier-label">
+              <h2>Team Support</h2>
+            </div>
+            <div className="sponsor-tier-entries">
+              <div className="sponsor-entry sponsor-entry-text">
+                <div className="sponsor-team-number">
+                  <a href={teamSupport.link} target="_blank" rel="noreferrer">
+                    3256
+                  </a>
+                </div>
+                <div className="sponsor-meta">
+                  <a className="sponsor-name sponsor-name-link" href={teamSupport.link} target="_blank" rel="noreferrer">
+                    {teamSupport.name} ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="sponsor-info-grid">
+          <div className="sponsor-info-card">
+            <h2>What funding covers</h2>
+            <ul className="sponsor-cost-list">
+              <li>
+                <span>Registration</span>
+                <span>~$6,000 first regional + kit of parts</span>
+              </li>
+              <li>
+                <span>Motors and electronics</span>
+                <span>Brushless motors, controllers, roboRIO, power distribution</span>
+              </li>
+              <li>
+                <span>Materials</span>
+                <span>Aluminum, polycarbonate, bearings, belts, fasteners</span>
+              </li>
+              <li>
+                <span>Tools</span>
+                <span>Drill presses, hand tools, batteries, wiring</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="sponsor-info-card">
+            <h2>Become a sponsor</h2>
+            <p>
+              Sponsorships and material donations go through our fiscal sponsor, The Hack Foundation
+              (Hack Club), a 501(c)(3). Donations are tax-deductible.
+            </p>
+            <div className="action-buttons">
+              <a
+                className="btn-primary"
+                href="https://docs.google.com/document/d/1VcobJuTHBTYQPiitCKM2Ftywepp1LyxhzjxF4hCkPEA/edit?usp=sharing"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Sponsor packet ↗
+              </a>
+              <a
+                className="btn-secondary"
+                href="https://hcb.hackclub.com/donations/start/ignis-robotics"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Donate ↗
+              </a>
+              <Link className="link-inline" to="/contact">
+                Contact the team →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  )
 }
 
-function Contact() { return <><PageIntro eyebrow="Say hello" title={<>Let's build<br /><em>something.</em></>} copy="Whether you want to join, sponsor, mentor, or simply learn more, we would love to hear from you." /><section className="section-wrap contact-grid"><div className="contact-panel"><img src="./images/frc-robot-sample.svg" alt="FRC robot illustration" /></div><div className="contact-details"><Eyebrow>General inquiries</Eyebrow><a className="email" href="mailto:ignisrobotics@gmail.com">ignisrobotics<br />@gmail.com</a><p>We are a student-run team and check messages regularly. We will reply as soon as possible.</p><div className="contact-actions"><ArrowLink to="/sponsors">Sponsor the team</ArrowLink><a className="resource-link" href="https://docs.google.com/forms/d/1l_R-9AmQ9DnoN7g5jBsZwCWisd5Go2GexUSvODv12KM/viewform" target="_blank" rel="noreferrer">Team sign-up form ↗</a></div><div className="socials"><a href="https://www.youtube.com/channel/UCkX5yUeLi_zcfDNouJ_GSyA" target="_blank" rel="noreferrer">YouTube ↗</a><a href="https://www.instagram.com/ignis_robotics/" target="_blank" rel="noreferrer">Instagram ↗</a></div></div></section></> }
-function NotFound() { return <section className="not-found section-wrap"><Eyebrow>404 / Off the field</Eyebrow><h1>This route missed the match.</h1><ArrowLink to="/">Back to home</ArrowLink></section> }
+function Contact() {
+  return (
+    <>
+      <PageIntro
+        tag="Contact"
+        title="Get in touch with the team."
+        copy="Whether you are a student interested in joining, an engineer interested in mentoring, or a sponsor looking to partner, we would love to hear from you."
+      />
+
+      <section className="section-wrap contact-grid">
+        <div className="contact-card-primary">
+          <SectionTag>Direct Email</SectionTag>
+          <h2>General Inquiries</h2>
+          <a className="contact-email-link" href="mailto:ignisrobotics@gmail.com">
+            ignisrobotics@gmail.com
+          </a>
+          <div className="contact-info-list">
+            <div className="contact-info-item">
+              <span className="contact-info-label">School & Workshop Location</span>
+              <span className="contact-info-val">Milpitas High School · 1285 Escuela Pkwy, Milpitas, CA 95035</span>
+            </div>
+            <div className="contact-info-item">
+              <span className="contact-info-label">Response Time</span>
+              <span className="contact-info-val">We are a student-run team and review inbox messages regularly throughout the school week.</span>
+            </div>
+            <div className="contact-info-item">
+              <span className="contact-info-label">Fiscal Sponsorship</span>
+              <span className="contact-info-val">The Hack Foundation (Hack Club), 501(c)(3) tax-exempt public charity.</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="contact-sidebar">
+          <div className="sidebar-box">
+            <h3>Student Sign-Up</h3>
+            <p>
+              Looking to join the team for the upcoming season? Submit your information to receive meeting dates, training schedules, and parent permission forms.
+            </p>
+            <a
+              className="btn-primary"
+              href="https://docs.google.com/forms/d/1l_R-9AmQ9DnoN7g5jBsZwCWisd5Go2GexUSvODv12KM/viewform"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Student Sign-up Form ↗
+            </a>
+          </div>
+
+          <div className="sidebar-box">
+            <h3>Sponsor & Mentor Inquiries</h3>
+            <p>
+              We welcome corporate sponsorships, tool/material donations, and technical industry mentors in mechanical, electrical, or software engineering.
+            </p>
+            <Link className="link-inline" to="/sponsors">
+              Review our sponsorship prospectus →
+            </Link>
+          </div>
+
+          <div className="sidebar-box">
+            <h3>Follow Team 12034</h3>
+            <p>Watch match recordings and see build season updates:</p>
+            <div className="social-links">
+              <a
+                className="social-link"
+                href="https://www.youtube.com/channel/UCkX5yUeLi_zcfDNouJ_GSyA"
+                target="_blank"
+                rel="noreferrer"
+              >
+                YouTube ↗
+              </a>
+              <a
+                className="social-link"
+                href="https://www.instagram.com/ignis_robotics/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Instagram ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}
+
+function NotFound() {
+  return (
+    <section className="not-found-wrap section-wrap">
+      <SectionTag>404 Error</SectionTag>
+      <h1>Page not found</h1>
+      <p>The page you requested does not exist or has been moved.</p>
+      <Link className="btn-primary" to="/">
+        Return to Home
+      </Link>
+    </section>
+  )
+}
 
 export default App
