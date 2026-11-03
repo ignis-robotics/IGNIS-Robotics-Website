@@ -319,7 +319,7 @@ function Sponsors() {
 
           <div className="mentor-panel">
             <div className="mentor-label">
-              <h2>Substantial Mentor</h2>
+              <h2>Substantial Supporter</h2>
             </div>
             <a
               className="mentor-entry"
