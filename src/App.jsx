@@ -251,6 +251,11 @@ const sponsorTiers = [
         name: 'Apple',
         logo: './images/Apple_Logo_White_lg.svg',
       },
+      {
+        name: 'NASA',
+        logo: './images/NASA_Logo.svg',
+        link: 'https://www.nasa.gov/',
+      },
     ],
   },
   {

@@ -621,10 +621,12 @@ main {
   min-height: 0;
 }
 
+/* Title-tier rule: every logo in this tier must render at the same size.
+   Apple's mark has empty padding in its viewBox, so fix the height for all
+   Title logos (Apple, NASA) rather than relying on intrinsic sizing. */
 .tier-title .sponsor-logo img {
   max-height: 88px;
   max-width: 300px;
-  /* Apple mark has empty padding in its viewBox — bump it so it doesn't read smaller */
   height: 88px;
   width: auto;
 }
@@ -1130,9 +1132,10 @@ main {
     max-width: min(78vw, 300px);
   }
 
+  /* Keep Title-tier logos equal-sized on small screens too. */
   .tier-title .sponsor-logo img {
-    max-height: 76px;
-    height: 76px;
+    max-height: 64px;
+    height: 64px;
     max-width: min(82vw, 320px);
   }
 
