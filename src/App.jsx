@@ -65,6 +65,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/sponsors" element={<Sponsors />} />
+          <Route path="/prospectus" element={<Prospectus />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -250,6 +251,7 @@ const sponsorTiers = [
       {
         name: 'Apple',
         logo: './images/Apple_Logo_White_lg.svg',
+        link: 'https://www.apple.com/',
       },
       {
         name: 'NASA',
@@ -274,6 +276,7 @@ const sponsorTiers = [
       {
         name: 'Google',
         logo: './images/Google_Logo.svg',
+        link: 'https://www.google.com/',
       },
       {
         name: 'Protocase',
@@ -282,6 +285,55 @@ const sponsorTiers = [
       },
     ],
   },
+]
+
+const prospectusTiers = [
+  {
+    name: 'Silver',
+    range: '$200 – $999',
+    website: true,
+    shirt: '1″ logo',
+    robot: '1″ logo',
+    booklet: true,
+    video: false,
+  },
+  {
+    name: 'Gold',
+    range: '$1,000 – $2,999',
+    website: true,
+    shirt: '2″ logo',
+    robot: '1″ logo',
+    booklet: true,
+    video: false,
+  },
+  {
+    name: 'Core',
+    range: '$3,000 – $4,999',
+    website: true,
+    shirt: '2.5″ logo',
+    robot: '2.5″ logo',
+    booklet: true,
+    video: true,
+  },
+  {
+    name: 'Title',
+    range: '$5,000+',
+    featured: true,
+    website: true,
+    shirt: '2.5″ logo',
+    robot: '3″ prominent logo',
+    booklet: true,
+    video: true,
+  },
+]
+
+const prospectusBudget = [
+  ['FRC registration', '$6,300', 'Entry to the competition season'],
+  ['Motors & electronics', '$3,000', 'Actuators, wiring, vision, computing'],
+  ['COTS parts', '$4,000', 'Gearboxes, bearings, belts, fasteners'],
+  ['Material stock', '$2,000', 'Aluminum, polycarbonate, wood'],
+  ['Machinery & tools', '$5,000', 'CNC, saws, hand tools'],
+  ['Field elements & contingency', '$1,000', 'Practice field, unexpected costs'],
 ]
 
 const teamSupport = {
@@ -374,14 +426,9 @@ function Sponsors() {
               (Hack Club), a 501(c)(3). Donations are tax-deductible.
             </p>
             <div className="action-buttons">
-              <a
-                className="btn-primary"
-                href="https://docs.google.com/document/d/1VcobJuTHBTYQPiitCKM2Ftywepp1LyxhzjxF4hCkPEA/edit?usp=sharing"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Sponsor packet ↗
-              </a>
+              <Link className="btn-primary" to="/prospectus">
+                Read the sponsorship prospectus →
+              </Link>
               <a
                 className="btn-secondary"
                 href="https://hcb.hackclub.com/donations/start/ignis-robotics"
@@ -398,6 +445,324 @@ function Sponsors() {
         </div>
       </section>
     </>
+  )
+}
+
+function Prospectus() {
+  return (
+    <article className="prospectus">
+      <section className="pros-cover section-wrap">
+        <SectionTag>Sponsorship Prospectus · 2026–27 Season</SectionTag>
+        <h1>Partner with IGNIS Robotics.</h1>
+        <p className="pros-lede">
+          IGNIS Robotics is FRC Team 12034, a student-founded, student-led team at
+          Milpitas High School. We take students, most with zero experience, and turn
+          them into engineers who design, machine, wire, and program industrial-scale
+          competition robots. Your sponsorship pays for the parts, tools, and
+          registrations that make that possible. It is tax-deductible through our
+          501(c)(3) fiscal sponsor.
+        </p>
+        <ul className="pros-facts">
+          <li>FRC Team 12034 · Milpitas, CA</li>
+          <li>100% student-led</li>
+          <li>Tax-deductible giving</li>
+          <li>$21,300 season budget</li>
+        </ul>
+        <div className="pros-actions">
+          <a
+            className="btn-primary"
+            href="https://hcb.hackclub.com/donations/start/ignis-robotics"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Donate ↗
+          </a>
+          <Link className="btn-secondary" to="/contact">
+            Become a sponsor →
+          </Link>
+          <button className="btn-secondary" type="button" onClick={() => window.print()}>
+            Print / save PDF
+          </button>
+        </div>
+        <div className="pros-cover-media">
+          <img src="./images/Frontpageimage.png" alt="IGNIS Robotics team members gathered together" />
+        </div>
+      </section>
+
+      <section className="section-wrap pros-section">
+        <SectionTag>The competition</SectionTag>
+        <h2>What is the FIRST Robotics Competition?</h2>
+        <p>
+          The FIRST Robotics Competition (FRC) is an international competition where
+          high school students collaborate to design, build, and program a robot to
+          complete a specific challenge. Each team is given just six weeks from
+          kickoff to competition to create a fully functional robot, operating like
+          a real engineering company under a real deadline.
+        </p>
+        <p>
+          FRC is widely considered one of the most advanced high school engineering
+          competitions in the world, for three reasons:
+        </p>
+        <div className="pillar-grid">
+          <article className="pillar-card">
+            <span className="pillar-index">01</span>
+            <h3>The scale of the robots</h3>
+            <p>
+              FRC robots weigh up to 120 pounds and measure around 3 feet in size,
+              significantly larger and more complex than those in most student
+              competitions.
+            </p>
+          </article>
+          <article className="pillar-card">
+            <span className="pillar-index">02</span>
+            <h3>The complexity of the challenge</h3>
+            <p>
+              Every January brings a brand-new game: alliance play, precision scoring
+              tasks, and match strategy that demand real engineering trade-offs.
+            </p>
+          </article>
+          <article className="pillar-card">
+            <span className="pillar-index">03</span>
+            <h3>The funding it takes</h3>
+            <p>
+              Registration, industrial parts, and professional tooling make FRC
+              resource-intensive by design, which is exactly why sponsors are the
+              reason teams like ours exist.
+            </p>
+          </article>
+        </div>
+        <p className="pros-subhead">Students gain hands-on experience in:</p>
+        <ul className="pros-facts">
+          <li>Mechanical engineering</li>
+          <li>Electrical systems</li>
+          <li>Software development</li>
+        </ul>
+        <p className="pros-follow">
+          Teams use industry-grade tools such as CAD software like Onshape, and are
+          responsible for designing, manufacturing, and programming every aspect of
+          their robot.
+        </p>
+        <div className="pros-cover-media">
+          <img src="./images/What-is-FRC.jpg" alt="Robots competing in a FIRST Robotics match" />
+        </div>
+      </section>
+
+      <section className="section-wrap pros-section">
+        <SectionTag>The team</SectionTag>
+        <h2>Who we are and what your sponsorship builds.</h2>
+        <p>
+          IGNIS Robotics is a student-led organization at Milpitas High School. We
+          work closely with our school to give students the opportunity to compete in
+          FRC and other robotics competitions and to prepare them for future STEM
+          careers through real-world engineering experience, not classroom exercises.
+        </p>
+        <p>
+          Our mission is to expand access to STEM through competitive robotics. That
+          means training students with no prior STEM experience (around 60% of our
+          members join as complete beginners), providing hands-on learning from day
+          one, and building skills in engineering, teamwork, and leadership while growing
+          a strong STEM culture on our campus and in our community.
+        </p>
+        <div className="pros-stat-grid">
+          <div className="pros-stat">
+            <span className="pros-stat-value">83%</span>
+            <span className="pros-stat-label">of FIRST alumni pursue a STEM major by their fourth year of college</span>
+          </div>
+          <div className="pros-stat">
+            <span className="pros-stat-value">51%</span>
+            <span className="pros-stat-label">of female FIRST alumni major in engineering or computer science</span>
+          </div>
+          <div className="pros-stat">
+            <span className="pros-stat-value">63%</span>
+            <span className="pros-stat-label">of FIRST alumni are employed in a STEM field</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-wrap pros-section">
+        <SectionTag>Where the money goes</SectionTag>
+        <h2>A $21,300 season, item by item.</h2>
+        <p>
+          Every dollar goes directly to designing, building, and competing: parts,
+          tools, registration, and travel. No salaries, no overhead.
+        </p>
+        <div className="pros-table-scroll">
+          <table className="pros-table">
+            <thead>
+              <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Cost</th>
+                <th scope="col">What it covers</th>
+              </tr>
+            </thead>
+            <tbody>
+              {prospectusBudget.map(([item, cost, detail]) => (
+                <tr key={item}>
+                  <td className="pros-table-item">{item}</td>
+                  <td className="pros-table-cost">{cost}</td>
+                  <td>{detail}</td>
+                </tr>
+              ))}
+              <tr className="pros-table-total">
+                <td className="pros-table-item">Total season budget</td>
+                <td className="pros-table-cost">$21,300</td>
+                <td>Registration, robot, tools, field, contingency</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section className="section-wrap pros-section">
+        <SectionTag>Sponsorship tiers</SectionTag>
+        <h2>Pick a tier. Get recognized everywhere we compete.</h2>
+        <p>
+          These tiers are completely flexible. We are not selling a product, we are
+          building a long-term partnership. Tell us what works for you and we will
+          work something out. In-kind donations of tools, materials, and parts, as
+          well as engineering mentorship, are equally welcome.
+        </p>
+        <div className="pros-table-scroll">
+          <table className="pros-table pros-tier-table">
+            <thead>
+              <tr>
+                <th scope="col">Benefit</th>
+                {prospectusTiers.map((tier) => (
+                  <th scope="col" key={tier.name} className={tier.featured ? 'pros-tier-featured' : undefined}>
+                    {tier.name}
+                    <span className="pros-tier-range">{tier.range}</span>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="pros-table-item">Website &amp; social media recognition</td>
+                {prospectusTiers.map((tier) => (
+                  <td key={tier.name}>{tier.website ? '✓' : '·'}</td>
+                ))}
+              </tr>
+              <tr>
+                <td className="pros-table-item">Logo on team T-shirt</td>
+                {prospectusTiers.map((tier) => (
+                  <td key={tier.name}>{tier.shirt}</td>
+                ))}
+              </tr>
+              <tr>
+                <td className="pros-table-item">Logo on the competition robot</td>
+                {prospectusTiers.map((tier) => (
+                  <td key={tier.name}>{tier.robot}</td>
+                ))}
+              </tr>
+              <tr>
+                <td className="pros-table-item">Recognition page in team booklet</td>
+                {prospectusTiers.map((tier) => (
+                  <td key={tier.name}>{tier.booklet ? 'Full page' : '·'}</td>
+                ))}
+              </tr>
+              <tr>
+                <td className="pros-table-item">Custom “Why you matter to us” video</td>
+                {prospectusTiers.map((tier) => (
+                  <td key={tier.name}>{tier.video ? '✓' : '·'}</td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div className="pros-note">
+          <h3>Feature video program for Core and Title sponsors</h3>
+          <p>
+            We produce a custom video showing exactly how your company or product
+            moves our team forward: the CAD software we design in, the tools we
+            machine with, the technology inside our robot. If your product is not
+            directly part of the build, we show how your support carried the team
+            through the season instead, showing the impact of your partnership on camera.
+          </p>
+        </div>
+      </section>
+
+      <section className="section-wrap pros-section">
+        <SectionTag>Social proof</SectionTag>
+        <h2>Join the companies already behind us.</h2>
+        <div className="pros-logo-band">
+          {/* Single source of truth: renders every sponsor in sponsorTiers,
+              in tier order, with links wherever the Sponsors page has them.
+              Add/remove a sponsor there and this band follows automatically. */}
+          {sponsorTiers.flatMap(({ sponsors }) => sponsors).map((sponsor) => (
+            <span className="pros-logo" key={sponsor.name}>
+              {sponsor.link ? (
+                <a href={sponsor.link} target="_blank" rel="noreferrer" aria-label={`${sponsor.name} website`}>
+                  <img src={sponsor.logo} alt={`${sponsor.name} logo`} />
+                </a>
+              ) : (
+                <img src={sponsor.logo} alt={`${sponsor.name} logo`} />
+              )}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-wrap pros-section">
+        <SectionTag>How to give</SectionTag>
+        <h2>Start with a conversation.</h2>
+        <ol className="pros-steps">
+          <li>
+            <span className="pros-step-index">1</span>
+            <div>
+              <h3>Talk to us first</h3>
+              <p>
+                Email{' '}
+                <a href="mailto:ignisrobotics@gmail.com">ignisrobotics@gmail.com</a>{' '}
+                and tell us you are interested. We will set up a time to talk through
+                tiers, recognition, and what works for both sides. Nothing is
+                one-size-fits-all.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span className="pros-step-index">2</span>
+            <div>
+              <h3>Agree on the partnership</h3>
+              <p>
+                Pick a tier or a custom amount, an in-kind donation of parts or tools,
+                or mentorship time. We confirm logo placement and recognition details
+                together before any money moves.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span className="pros-step-index">3</span>
+            <div>
+              <h3>Donate through our fiscal sponsor</h3>
+              <p>
+                Once we have talked, complete your gift through The Hack Foundation
+                (Hack Club), a 501(c)(3) tax-exempt public charity, EIN 81-2908499.{' '}
+                <a
+                  href="https://hcb.hackclub.com/donations/start/ignis-robotics"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Donation portal ↗
+                </a>
+              </p>
+            </div>
+          </li>
+        </ol>
+        <div className="pros-actions">
+          <a className="btn-primary" href="mailto:ignisrobotics@gmail.com">
+            Email the team
+          </a>
+          <a
+            className="btn-secondary"
+            href="https://hcb.hackclub.com/donations/start/ignis-robotics"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Donation portal ↗
+          </a>
+        </div>
+      </section>
+    </article>
   )
 }
 
@@ -454,8 +819,8 @@ function Contact() {
             <p>
               We welcome corporate sponsorships, tool/material donations, and technical industry mentors in mechanical, electrical, or software engineering.
             </p>
-            <Link className="link-inline" to="/sponsors">
-              Review our sponsorship prospectus →
+            <Link className="link-inline" to="/prospectus">
+              Read the sponsorship prospectus →
             </Link>
           </div>
 
