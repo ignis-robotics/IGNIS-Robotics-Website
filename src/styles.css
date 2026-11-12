@@ -1537,6 +1537,10 @@ main {
 
 /* Prospectus print: light theme for clean PDF export */
 @media print {
+  @page {
+    margin: 0.6in;
+  }
+
   .site-header,
   .site-footer,
   .pros-actions {
@@ -1555,35 +1559,33 @@ main {
     padding-top: 0;
   }
 
-  .pros-cover h1,
-  .pros-section h2,
-  .pros-table-item,
-  .pros-table-cost,
-  .pros-steps h3,
-  .pros-note h3 {
+  /* Screen styles use near-white text and dark surfaces everywhere,
+     so reset the whole prospectus scope to ink-on-paper. */
+  .prospectus h1,
+  .prospectus h2,
+  .prospectus h3 {
     color: #111 !important;
   }
 
-  .pros-lede,
-  .pros-section > p,
-  .pros-note p,
-  .pros-steps p,
-  .pros-stat-label,
-  .pros-table th,
-  .pros-table td {
+  .prospectus p,
+  .prospectus li,
+  .prospectus td,
+  .prospectus th {
     color: #333 !important;
   }
 
-  .pros-facts li,
-  .pros-stat,
-  .pros-table-scroll,
-  .pros-note,
-  .pros-steps li,
-  .pros-logo-band,
-  .pros-cover-media {
+  .prospectus .pillar-card,
+  .prospectus .pros-stat,
+  .prospectus .pros-note,
+  .prospectus .pros-steps li,
+  .prospectus .pros-facts li,
+  .prospectus .pros-table-scroll {
     background: #fff !important;
     border-color: #ccc !important;
-    break-inside: avoid;
+  }
+
+  .prospectus .pillar-index {
+    color: #666 !important;
   }
 
   .pros-stat-value,
@@ -1598,13 +1600,46 @@ main {
     background: #f1f5f9 !important;
   }
 
+  /* Scroll containers clip their tables on paper. Let tables lay out full width. */
+  .pros-table-scroll {
+    overflow: visible !important;
+  }
+
+  .pros-table,
+  .pros-tier-table {
+    min-width: 0 !important;
+    width: 100% !important;
+    font-size: 0.8rem;
+  }
+
+  .pros-table th,
+  .pros-table td {
+    padding: 0.55rem 0.7rem;
+  }
+
+  /* White sponsor logos are invisible on paper, so keep their dark band. */
+  .pros-logo-band {
+    background: #13171f !important;
+    border-color: #13171f !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Never strand a whole multi-page section; only keep small blocks together. */
   .pros-section {
-    break-inside: avoid-page;
+    break-inside: auto;
+  }
+
+  .pros-stat,
+  .pros-steps li,
+  .pros-note,
+  .pros-logo-band {
+    break-inside: avoid;
   }
 
   .pros-cover-media {
-    aspect-ratio: auto;
-    max-height: 260px;
+    aspect-ratio: 21 / 9;
+    max-height: 300px;
   }
 
   a {
