@@ -275,6 +275,11 @@ const sponsorTiers = [
         name: 'Google',
         logo: './images/Google_Logo.svg',
       },
+      {
+        name: 'Protocase',
+        logo: './images/Protocase_Logo_White.png',
+        link: 'https://www.protocase.com/',
+      },
     ],
   },
 ]
