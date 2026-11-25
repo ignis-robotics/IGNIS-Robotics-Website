@@ -279,6 +279,11 @@ const sponsorTiers = [
         link: 'https://www.google.com/',
       },
       {
+        name: 'PG&E',
+        logo: './images/PGE_Logo.svg',
+        link: 'https://www.pge.com/',
+      },
+      {
         name: 'Protocase',
         logo: './images/Protocase_Logo_White.png',
         link: 'https://www.protocase.com/',
